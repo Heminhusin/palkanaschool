@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="ckb">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>سیستەمی نمرەدان - ناوەندی پەلکانەی تێکەڵاو</title>
+  <style>
+    body {
+      font-family: "Noto Naskh Arabic", sans-serif;
+      background-color: #f7f7f7;
+      text-align: center;
+      padding: 50px;
+      direction: rtl;
+    }
+    h1 {
+      color: #222;
+    }
+    input, button {
+      padding: 10px;
+      font-size: 16px;
+      margin: 10px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+    button {
+      background-color: #007bff;
+      color: white;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #0056b3;
+    }
+    .result {
+      margin-top: 30px;
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      display: none;
+      width: 300px;
+      margin-inline: auto;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+  </style>
+</head>
+<body>
+  <h1>سیستەمی نمرەدان<br>ناوەندی پەلکانەی تێکەڵاو</h1>
+  <p>تکایە کۆدی قوتابی بنووسە:</p>
+  <input type="text" id="studentCode" placeholder="کۆد...">
+  <button onclick="showResult()">نیشاندان</button>
+
+  <div class="result" id="resultBox">
+    <h3 id="studentName"></h3>
+    <p>زمانی کوردی: <span id="ckurdish"></span></p>
+    <p>ئینگلیزی: <span id="cenglish"></span></p>
+    <p>بیرکاری: <span id="cmath"></span></p>
+    <p>زانست: <span id="cscience"></span></p>
+    <hr>
+    <p><b>نمرەی گشتی: <span id="cavg"></span></b></p>
+  </div>
+
+  <script>
+    const data = {
+      "1001": { name: "هەژار فەتح", kurdish: 85, english: 76, math: 90, science: 88 },
+      "1002": { name: "نازنین سەعید", kurdish: 92, english: 88, math: 94, science: 89 },
+      "1003": { name: "سروە هۆڕەمان", kurdish: 80, english: 70, math: 85, science: 82 }
+    };
+
+    function showResult() {
+      const code = document.getElementById("studentCode").value.trim();
+      const student = data[code];
+      const box = document.getElementById("resultBox");
+
+      if (student) {
+        document.getElementById("studentName").innerText = `ناو: ${student.name}`;
+        document.getElementById("ckurdish").innerText = student.kurdish;
+        document.getElementById("cenglish").innerText = student.english;
+        document.getElementById("cmath").innerText = student.math;
+        document.getElementById("cscience").innerText = student.science;
+
+        const avg = ((student.kurdish + student.english + student.math + student.science) / 4).toFixed(2);
+        document.getElementById("cavg").innerText = avg;
+        box.style.display = "block";
+      } else {
+        box.style.display = "block";
+        document.getElementById("studentName").innerText = "کۆدەکەت نادروستە ❌";
+        document.getElementById("ckurdish").innerText = "";
+        document.getElementById("cenglish").innerText = "";
+        document.getElementById("cmath").innerText = "";
+        document.getElementById("cscience").innerText = "";
+        document.getElementById("cavg").innerText = "";
+      }
+    }
+  </script>
+</body>
+</html>
